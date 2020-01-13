@@ -315,8 +315,6 @@ ul {
   list-style: circle inside;
 }
 
-.button,
-button,
 dd,
 dt,
 li {
@@ -324,7 +322,6 @@ li {
 }
 
 fieldset,
-input,
 select,
 textarea {
   margin-bottom: 1.5rem;
