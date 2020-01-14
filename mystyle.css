@@ -17,10 +17,11 @@ button#send {
     border-radius: 6px;
 }
 .text.me {
-	background-color: #bee6ba;
+  background-color: #bee6ba;
 }
 .msg.me {
     text-align: right;
+    display: block;
 }
 .action {
 	display: flex;

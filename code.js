@@ -5,7 +5,7 @@ button.addEventListener("click", onSendClick);
 const input = document.querySelector("input#writeMsg");
 input.addEventListener("keydown", onKeyPressed);
 
-setTimeout(botMsg, 5000);
+window.setInterval(botMsg, 5000);
 
 function onKeyPressed (event) {
 	
@@ -24,28 +24,41 @@ function onSendClick (){
 	
 }
 
-function sendMsg (msg, imageName, isMe) {
+function sendMsg (msg, imageName, isMe, senderName) {
+
+	if(msg === ""){
+		return;
+	}
 	
 	const message = document.createElement("p");
 	message.classList.add("msg");
 	isMe ? message.classList.add("me") : null;
+
+	const nameAndMsg = document.createElement("span");
+	nameAndMsg.id = "nameAndMsg";
 	
-	const element = document.createElement("span");
-	element.innerHTML = msg;
-	element.classList.add("text");
-	isMe ? element.classList.add("me") : null;
+	const text = document.createElement("span");
+	text.innerHTML = msg;
+	text.classList.add("text");
+	isMe ? text.classList.add("me") : null;
 	
-	var image = document.createElement("IMG");
+	const image = document.createElement("IMG");
 	image.setAttribute("src", imageName);
 	image.setAttribute("alt", "Avatar");
 	image.classList.add("avatar");
+
+	const name = document.createElement("span");
+	name.id = "name";
+	name.innerHTML = senderName;
 	
 	if (isMe) {
-		message.appendChild(element);
+		message.appendChild(text);
 		message.appendChild(image);
 	} else {
 		message.appendChild(image);
-		message.appendChild(element);
+		nameAndMsg.appendChild(name);
+		nameAndMsg.appendChild(text);
+		message.appendChild(nameAndMsg);
 	}
 	
 	const parent = document.querySelector("div.messageContainer");
@@ -55,6 +68,6 @@ function sendMsg (msg, imageName, isMe) {
 
 function botMsg () {
 	
-	sendMsg("Hello, I'm a bot", "https://i.pravatar.cc/50", false);
+	sendMsg("Hello, I'm a bot", "https://i.pravatar.cc/50", false, "Some Bot");
 	
 }
