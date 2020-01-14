@@ -1,11 +1,10 @@
 const bots = [
-	{name: "Anna", gen: "fem", link: "a1.jfif"},
-	{name: "Marc", gen: "masc", link: "a2.jfif"},
-	{name: "John", gen: "masc", link: "a3.jfif"},
-	{name: "Mike", gen: "masc", link: "a4.jfif"},
-	{name: "Tony", gen: "masc", link: "a5.jfif"}
+	{name: "Anna", link: "a1.jfif"},
+	{name: "Marc", link: "a2.jfif"},
+	{name: "John", link: "a3.jfif"},
+	{name: "Mike", link: "a4.jfif"},
+	{name: "Tony", link: "a5.jfif"}
 ]
-
 const users = createBots();
 
 const button = document.querySelector("button#send");
@@ -13,6 +12,7 @@ button.addEventListener("click", onSendClick);
 
 const input = document.querySelector("input#writeMsg");
 input.addEventListener("keydown", onKeyPressed);
+input.focus();
 
 function User (name, avatar) {
 	this.name = name;
@@ -22,7 +22,6 @@ function User (name, avatar) {
 function createBots () {
 	const users = bots.map(function (bot) {
 		const user = new User(bot.name, bot.link);
-		console.log('bot', bot, user);
 		return user;
 	});
 
@@ -107,17 +106,7 @@ function botMsg () {
 	const index = getRandomInt(0, 4);
 	const user = users[index];
 	
-	console.log("user", users, index);
-	
 	sendMsg("Hello, I'm a bot", user.avatar, false, user.name);
 	
 }
-//window.setInterval(botMsg, 10000);
-
-botMsg();
-botMsg();
-botMsg();
-botMsg();
-botMsg();
-botMsg();
-botMsg();
+window.setInterval(botMsg, 10000);
