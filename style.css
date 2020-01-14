@@ -43,8 +43,8 @@ button,
 input[type='button'],
 input[type='reset'],
 input[type='submit'] {
-  background-color: #9b4dca;
   border: 0.1rem solid #9b4dca;
+  background-color: #9b4dca;
   border-radius: .4rem;
   color: #fff;
   cursor: pointer;
@@ -212,6 +212,7 @@ select {
           appearance: none;
   background-color: transparent;
   border: 0.1rem solid #d1d1d1;
+  background-color: rgb(235, 219, 244);;
   border-radius: .4rem;
   box-shadow: none;
   box-sizing: inherit;
