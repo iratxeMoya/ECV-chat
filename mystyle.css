@@ -1,8 +1,11 @@
 .messageContainer {
-    padding: 10px;
-    border: 1px solid #d0d0d0;
-    margin-bottom: 10px;
-    border-radius: 6px;
+  padding: 10px;
+  font-family: 'Nunito', sans-serif;
+  border: 1px solid #d0d0d0;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  max-height: 79vh;
+  overflow: scroll;
 }
 button#send {
 	margin-left: 1em;
@@ -11,17 +14,19 @@ button#send {
 	display:flex;
 }
 .text {
-    width: fit-content;
-    background-color: #bcd7d8;
-    padding: 5px 10px 5px 10px;
-    border-radius: 6px;
+  width: fit-content;
+  background-color: #bcd7d8;
+  padding: 5px 10px 5px 10px;
+  border-radius: 6px;
+}
+.group {
+  display: flex;
 }
 .text.me {
   background-color: #bee6ba;
 }
 .msg.me {
-    text-align: right;
-    display: block;
+  text-align: right;
 }
 .action {
 	display: flex;
@@ -39,4 +44,38 @@ button#send {
 #name {
 	font-size: small;
 	font-weight: bold;
+}
+.header {
+  background-color: #4f4f4f;
+  font-family: 'Asap', sans-serif;
+  overflow: hidden;
+  margin-bottom: 1em;
+  width: 100%;
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  box-shadow: -1px 2px 5px #574684;
+  text-transform: uppercase;
+}
+
+/* Style the links inside the navigation bar */
+.header a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.header a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.header a.active {
+  background-color: #9b4dca;
+  color: white;
 }

@@ -1,3 +1,12 @@
+const bots = [
+	{name: "Anna", gen: "fem", link: "a1.jfif"},
+	{name: "Marc", gen: "masc", link: "a2.jfif"},
+	{name: "John", gen: "masc", link: "a3.jfif"},
+	{name: "Mike", gen: "masc", link: "a4.jfif"},
+	{name: "Tony", gen: "masc", link: "a5.jfif"}
+]
+
+const users = createBots();
 
 const button = document.querySelector("button#send");
 button.addEventListener("click", onSendClick);
@@ -5,7 +14,20 @@ button.addEventListener("click", onSendClick);
 const input = document.querySelector("input#writeMsg");
 input.addEventListener("keydown", onKeyPressed);
 
-window.setInterval(botMsg, 5000);
+function User (name, avatar) {
+	this.name = name;
+	this.avatar = avatar;
+}
+
+function createBots () {
+	const users = bots.map(function (bot) {
+		const user = new User(bot.name, bot.link);
+		console.log('bot', bot, user);
+		return user;
+	});
+
+	return users;
+}
 
 function onKeyPressed (event) {
 	
@@ -21,11 +43,12 @@ function onSendClick (){
 	let text = input.value;
 	sendMsg(text, "myAvatar.png", true);
 	input.value = "";
-	
+	const messageContainer = document.querySelector("div.messageContainer");
+	messageContainer.scrollTop = messageContainer.scrollHeight;	
 }
 
 function sendMsg (msg, imageName, isMe, senderName) {
-
+	
 	if(msg === ""){
 		return;
 	}
@@ -33,7 +56,7 @@ function sendMsg (msg, imageName, isMe, senderName) {
 	const message = document.createElement("p");
 	message.classList.add("msg");
 	isMe ? message.classList.add("me") : null;
-
+	
 	const nameAndMsg = document.createElement("span");
 	nameAndMsg.id = "nameAndMsg";
 	
@@ -46,14 +69,21 @@ function sendMsg (msg, imageName, isMe, senderName) {
 	image.setAttribute("src", imageName);
 	image.setAttribute("alt", "Avatar");
 	image.classList.add("avatar");
-
+	
 	const name = document.createElement("span");
 	name.id = "name";
-	name.innerHTML = senderName;
+	name.innerHTML = isMe ? "Me" : senderName;
 	
 	if (isMe) {
-		message.appendChild(text);
-		message.appendChild(image);
+		/* message.appendChild(text);
+		message.appendChild(image); */
+		const group = document.createElement("div");
+		group.classList.add("group");
+		nameAndMsg.appendChild(name);
+		nameAndMsg.appendChild(text);
+		group.appendChild(nameAndMsg);
+		group.appendChild(image);
+		message.appendChild(group);
 	} else {
 		message.appendChild(image);
 		nameAndMsg.appendChild(name);
@@ -66,8 +96,28 @@ function sendMsg (msg, imageName, isMe, senderName) {
 	
 }
 
+function getRandomInt(min, max) {
+	min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 function botMsg () {
 	
-	sendMsg("Hello, I'm a bot", "https://i.pravatar.cc/50", false, "Some Bot");
+	const index = getRandomInt(0, 4);
+	const user = users[index];
+	
+	console.log("user", users, index);
+	
+	sendMsg("Hello, I'm a bot", user.avatar, false, user.name);
 	
 }
+//window.setInterval(botMsg, 10000);
+
+botMsg();
+botMsg();
+botMsg();
+botMsg();
+botMsg();
+botMsg();
+botMsg();

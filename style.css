@@ -19,11 +19,12 @@ html {
 
 body {
   color: #606c76;
-  font-family: 'Roboto', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 1.6em;
   font-weight: 300;
   letter-spacing: .01em;
   line-height: 1.6;
+  margin: 0;
 }
 
 blockquote {
@@ -275,6 +276,7 @@ input[type='radio'] {
   padding: 0 2.0rem;
   position: relative;
   width: 100%;
+  margin-top: 70px;
 }
 
 a {
