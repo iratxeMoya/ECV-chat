@@ -79,6 +79,7 @@ function onAddClick () {
 	const name = document.querySelector("input#addInput");
 	roomNames.push(name.value);
 	addChatRoom(name.value);
+	name.value = "";
 }
 
 function notifyStatusChange (status, user) {
