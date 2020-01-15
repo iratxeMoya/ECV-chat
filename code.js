@@ -15,6 +15,11 @@ server.on_user_connected = function(user_id) {
 	console.log("new conection: ", user_id);
 }
 
+server.on_user_disconnected = function(user_id) {
+	notifyStatusChange("newDisconection", user_id);
+	console.log("new conection: ", user_id);
+}
+
 
 // Client side
 
@@ -56,6 +61,17 @@ function notifyStatusChange (status, user) {
 		container.classList.add("notificationContainer");
 		message.classList.add("notification");
 		message.innerHTML = "New user has been conected";
+
+		container.appendChild(message);
+		parent.appendChild(container);
+	} else if ( status === "newDisconection") {
+		const message = document.createElement("span");
+		const container = document.createElement("div");
+		const parent = document.querySelector("div.messageContainer");
+
+		container.classList.add("notificationContainer");
+		message.classList.add("notification");
+		message.innerHTML = "New user has been disconected";
 
 		container.appendChild(message);
 		parent.appendChild(container);
