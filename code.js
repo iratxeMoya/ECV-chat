@@ -1,7 +1,8 @@
-// Server Conection
 
+const roomNames = ["iratxe"];
 const server = new SillyClient();
-server.connect("wss://tamats.com:55000", "iratxe");
+server.connect("wss://tamats.com:55000", roomNames[0]);
+listChatRooms();
 
 server.on_message = function(user_id, dataStr) {
 	const data = JSON.parse(dataStr);
@@ -12,16 +13,31 @@ server.on_message = function(user_id, dataStr) {
 
 server.on_user_connected = function(user_id) {
 	notifyStatusChange("newConection", user_id);
-	console.log("new conection: ", user_id);
 }
 
 server.on_user_disconnected = function(user_id) {
 	notifyStatusChange("newDisconection", user_id);
-	console.log("new conection: ", user_id);
 }
 
+function listChatRooms () {
+	roomNames.forEach(function (room) {
+		const chatRoomContainer = document.createElement("div");
+		const roomName = document.createElement("span");
+		const parent = document.querySelector(".chatListContainer");
+		const numClients = document.createElement("span");
+		numClients.classList.add("roomNumCli");
 
-// Client side
+		numClients.innerHTML = server.num_clients;
+		roomName.innerHTML = room;
+		roomName.style["text-transform"] = "capitalize";
+		room === roomNames[0] ? chatRoomContainer.classList.add("selected") : null;
+		chatRoomContainer.classList.add("chatRoomContainer");
+
+		chatRoomContainer.appendChild(roomName);
+		chatRoomContainer.appendChild(numClients);
+		parent.appendChild(chatRoomContainer);
+	})
+}
 
 const bots = [
 	{name: "Anna", link: "a1.jfif", color: "#165FB4"},
@@ -50,6 +66,10 @@ function User (name, avatar, color, visualName) {
 	this.name = name;
 	this.avatar = avatar;
 	this.color = color;
+}
+
+function onChatRoomClick () {
+
 }
 
 function notifyStatusChange (status, user) {

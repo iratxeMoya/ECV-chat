@@ -354,7 +354,7 @@ SillyClient.prototype.findRooms = function( txt, on_complete )
 		protocol = "https://";
 		url = url.substr(6);
 	}
-	req.open('GET', protocol + url + "/find?name=" + name, true);
+	req.open('GET', protocol + url + "/find?name=" + txt, true);
 	req.onreadystatechange = function (aEvt) {
 	  if (req.readyState == 4) {
 		 if(req.status != 200)

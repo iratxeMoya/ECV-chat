@@ -33,13 +33,31 @@ button#send {
   text-align: center;
 }
 .chatListContainer {
-  width: 300px;
+  width: 450px;
   margin-right: 25px;
   color: white;
   border-radius: 6px;
   text-align: center;
   background-color: #4f4f4f;
   box-shadow: 1px 3px 11px 0px #574684;
+}
+.chatRoomContainer:hover {
+  background-color: #606c76;
+  cursor: pointer;
+}
+.roomNumCli {
+  border: 1px solid #989898;
+  border-radius: 50%;
+}
+.chatRoomContainer.selected {
+  background-color: #9b4dca;
+}
+.chatRoomContainer {
+  border: 1px solid #989898;
+  margin: 5px;
+  border-radius: 6px;
+  padding: 10px;
+  text-align: center;
 }
 .msg {
 	display:flex;
