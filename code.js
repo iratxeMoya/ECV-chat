@@ -2,7 +2,9 @@
 const roomNames = ["iratxe"];
 const server = new SillyClient();
 server.connect("wss://tamats.com:55000", roomNames[0]);
-listChatRooms();
+roomNames.forEach(function (room) {
+	addChatRoom(room);
+});
 
 server.on_message = function(user_id, dataStr) {
 	const data = JSON.parse(dataStr);
@@ -19,24 +21,22 @@ server.on_user_disconnected = function(user_id) {
 	notifyStatusChange("newDisconection", user_id);
 }
 
-function listChatRooms () {
-	roomNames.forEach(function (room) {
-		const chatRoomContainer = document.createElement("div");
-		const roomName = document.createElement("span");
-		const parent = document.querySelector(".chatListContainer");
-		const numClients = document.createElement("span");
-		numClients.classList.add("roomNumCli");
+function addChatRoom (room) {
+	const chatRoomContainer = document.createElement("div");
+	const roomName = document.createElement("span");
+	const parent = document.querySelector(".chatListContainer");
+	const numClients = document.createElement("span");
+	numClients.classList.add("roomNumCli");
 
-		numClients.innerHTML = server.num_clients;
-		roomName.innerHTML = room;
-		roomName.style["text-transform"] = "capitalize";
-		room === roomNames[0] ? chatRoomContainer.classList.add("selected") : null;
-		chatRoomContainer.classList.add("chatRoomContainer");
+	numClients.innerHTML = server.num_clients;
+	roomName.innerHTML = room;
+	roomName.style["text-transform"] = "capitalize";
+	room === roomNames[0] ? chatRoomContainer.classList.add("selected") : null;
+	chatRoomContainer.classList.add("chatRoomContainer");
 
-		chatRoomContainer.appendChild(roomName);
-		chatRoomContainer.appendChild(numClients);
-		parent.appendChild(chatRoomContainer);
-	})
+	chatRoomContainer.appendChild(roomName);
+	// chatRoomContainer.appendChild(numClients);
+	parent.appendChild(chatRoomContainer);
 }
 
 const bots = [
@@ -56,6 +56,9 @@ const input = document.querySelector("input#writeMsg");
 input.addEventListener("keydown", onKeyPressed);
 input.focus();
 
+const addBtn = document.querySelector("button#add");
+addBtn.addEventListener("click", onAddClick);
+
 
 function Message (user, text){
 	this.user = user;
@@ -70,6 +73,12 @@ function User (name, avatar, color, visualName) {
 
 function onChatRoomClick () {
 
+}
+
+function onAddClick () {
+	const name = document.querySelector("input#addInput");
+	roomNames.push(name.value);
+	addChatRoom(name.value);
 }
 
 function notifyStatusChange (status, user) {

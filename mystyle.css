@@ -159,3 +159,23 @@ button#send {
   text-transform: uppercase;
   font-size: 17px;
 }
+button#add {
+  width: 40px;
+  min-width: 40px;
+  margin: 0;
+  height: 40px;
+  margin-left: 1em;
+  padding: 0;
+  border-radius: 50%;
+  text-align: center;
+  color: black;
+  background-color: #ebdbf4;
+}
+button#add:hover {
+  background-color: #606c76;
+  color: white;
+}
+.actionAdd {
+  display: flex;
+  margin-top: 10px;
+}
