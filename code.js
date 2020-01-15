@@ -3,20 +3,21 @@
 const server = new SillyClient();
 server.connect("wss://tamats.com:55000", "iratxe");
 
-server.on_message = function(user_id, message) {
-	const user = new User(user_id, "https://i.pravatar.cc/50", getRandomColor());
+server.on_message = function(user_id, dataStr) {
+	const data = JSON.parse(dataStr);
+	const user = data.user;
+	const message = data.msg;
 	sendMsg(message, user, false);
 }
 
-function getRandomColor() {
-	var letters = '0123456789ABCDEF';
-	var color = '#';
-	for (var i = 0; i < 6; i++) {
-	  color += letters[Math.floor(Math.random() * 16)];
-	}
-	return color;
-  }
+server.on_user_connected = function(user_id) {
+	notifyStatusChange("newConection", user_id);
+	console.log("new conection: ", user_id);
+}
+
+
 // Client side
+
 const bots = [
 	{name: "Anna", link: "a1.jfif", color: "#165FB4"},
 	{name: "Marc", link: "a2.jfif", color: "#6616B4"},
@@ -25,7 +26,7 @@ const bots = [
 	{name: "Tony", link: "a5.jfif", color: "#A6B416"}
 ]
 const users = createBots();
-const me = new User("Me", "MyAvatar.png", "black");
+const me = new User("Iratxe", "MyAvatar.png", "#C907B4");
 
 const button = document.querySelector("button#send");
 button.addEventListener("click", onSendClick);
@@ -34,10 +35,31 @@ const input = document.querySelector("input#writeMsg");
 input.addEventListener("keydown", onKeyPressed);
 input.focus();
 
-function User (name, avatar, color) {
+
+function Message (user, text){
+	this.user = user;
+	this.msg = text;
+}
+
+function User (name, avatar, color, visualName) {
 	this.name = name;
 	this.avatar = avatar;
 	this.color = color;
+}
+
+function notifyStatusChange (status, user) {
+	if (status === 'newConection') {
+		const message = document.createElement("span");
+		const container = document.createElement("div");
+		const parent = document.querySelector("div.messageContainer");
+
+		container.classList.add("notificationContainer");
+		message.classList.add("notification");
+		message.innerHTML = "New user has been conected";
+
+		container.appendChild(message);
+		parent.appendChild(container);
+	}
 }
 
 function createBots () {
@@ -62,7 +84,9 @@ function onSendClick (){
 	
 	let text = input.value;
 	sendMsg(text, me, true );
-	server.sendMessage(text);
+	const message = new Message(me, text);
+	const messageStr = JSON.stringify(message);
+	server.sendMessage(messageStr);
 	input.value = "";
 
 }
@@ -93,7 +117,7 @@ function sendMsg (msg, user, isMe) {
 	const name = document.createElement("span");
 	name.id = "name";
 	name.style["color"] = user.color;
-	name.innerHTML = user.name;
+	name.innerHTML = isMe ? "Me" : user.name;
 	
 	if (isMe) {
 		/* message.appendChild(text);
@@ -120,12 +144,6 @@ function sendMsg (msg, user, isMe) {
 	
 }
 
-function getRandomInt(min, max) {
-	min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
 function botMsg () {
 	
 	const index = getRandomInt(0, 4);
@@ -136,3 +154,19 @@ function botMsg () {
 }
 // window.setInterval(botMsg, 5000);
 
+// some random functions for bots
+
+function getRandomColor() {
+	var letters = '0123456789ABCDEF';
+	var color = '#';
+	for (var i = 0; i < 6; i++) {
+	  color += letters[Math.floor(Math.random() * 16)];
+	}
+	return color;
+}
+
+function getRandomInt(min, max) {
+	min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}

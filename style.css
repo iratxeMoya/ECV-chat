@@ -272,12 +272,12 @@ input[type='radio'] {
 }
 
 .container {
-  margin: 0 auto;
-  max-width: 112.0rem;
+  margin-left: 0px;
+  margin-right: 40px;
   padding: 0 2.0rem;
   position: relative;
-  width: 100%;
   margin-top: 70px;
+  display: flex;
 }
 
 a {

@@ -16,14 +16,30 @@
   height: 77vh;
   overflow: scroll;
 }
+#myAvatar {
+  margin-right: 5px;
+  margin-left: 5px;
+  border: 1px solid #ebdbf4;
+    background-color: #ebdbf4;
+}
 button#send {
   width: 40px;
+  min-width: 40px;
   margin: 0;
   height: 38px;
   margin-left: 1em;
   padding: 0;
   border-radius: 50%;
   text-align: center;
+}
+.chatListContainer {
+  width: 300px;
+  margin-right: 25px;
+  color: white;
+  border-radius: 6px;
+  text-align: center;
+  background-color: #4f4f4f;
+  box-shadow: 1px 3px 11px 0px #574684;
 }
 .msg {
 	display:flex;
@@ -99,4 +115,28 @@ button#send {
 .header a.active {
   background-color: #9b4dca;
   color: white;
+}
+
+.notificationContainer {
+  text-align: center;
+}
+.notification {
+  padding: 5px 10px 5px 10px;
+  background-color: #c3c3c3;
+  border-radius: 6px;
+}
+.chat {
+  width: -webkit-fill-available;
+  margin-right: 0px;
+}
+.titleContainer {
+  text-align: left;
+  padding: 10px;
+  background-color: #9b4dca;
+  border-radius: 6px 6px 0px 0px;
+}
+.title {
+  font-family: 'Asap', sans-serif;
+  text-transform: uppercase;
+  font-size: 17px;
 }
