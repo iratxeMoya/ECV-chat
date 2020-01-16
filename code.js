@@ -1,7 +1,16 @@
 
 const roomNames = [{name: "iratxe", messages: []}];
+let actualRoom = "iratxe";
 const server = new SillyClient();
+let connectedPeople = [];
+
+let myID = null;
 server.connect("wss://tamats.com:55000", roomNames[0].name);
+
+server.on_ready = function(id) {
+	myID = id;
+}
+
 roomNames.forEach(function (room) {
 	addChatRoom(room.name);
 });
@@ -21,12 +30,32 @@ server.on_message = function(user_id, dataStr) {
 	// setTimeout(function(){botMsg(message.length)}, 3000);
 }
 
+server.on_room_info = function(info) {
+	connectedPeople = info.clients;
+}
+
 server.on_user_connected = function(user_id) {
 	notifyStatusChange("newConection", user_id);
+	const minID = Array.min(connectedPeople);
+	console.log("out if", typeof myID,typeof minID);
+	if (Number(myID) === minID) {
+		console.log("in if", myID, minID);
+		roomNames.forEach(function(room) {
+			if (actualRoom.name === roomName) {
+				room.messages.forEach(function(message) {
+					const messageStr = JSON.stringify(message);
+					server.sendMessage(messageStr, [user_id])
+				})
+			}
+		})
+	}
+
+	connectedPeople.push(user_id);
 }
 
 server.on_user_disconnected = function(user_id) {
 	notifyStatusChange("newDisconection", user_id);
+	list.splice( list.indexOf(user_id), 1 );
 }
 
 function addChatRoom (room) {
@@ -94,6 +123,7 @@ function onChatRoomClick (room) {
 	roomName = child.innerHTML.toLowerCase();
 
 	server.connect("wss://tamats.com:55000", roomName);
+	actualRoom = roomName;
 
 	const parent = document.querySelector("div.messageContainer");
 	while (parent.firstChild) {
@@ -136,6 +166,7 @@ function notifyStatusChange (status, user) {
 
 		container.appendChild(message);
 		parent.appendChild(container);
+
 	} else if ( status === "newDisconection") {
 		const message = document.createElement("span");
 		const container = document.createElement("div");
@@ -143,7 +174,7 @@ function notifyStatusChange (status, user) {
 
 		container.classList.add("notificationContainer");
 		message.classList.add("notification");
-		message.innerHTML = "New user has been disconected";
+		message.innerHTML = "A user has been disconected";
 
 		container.appendChild(message);
 		parent.appendChild(container);
@@ -238,6 +269,12 @@ function sendMsg (msg, user, isMe) {
 	messageContainer.scrollTop = messageContainer.scrollHeight;	
 	
 }
+
+// utils
+
+Array.min = function( array ){
+    return Math.min.apply( Math, array );
+};
 
 // BOTS
 
