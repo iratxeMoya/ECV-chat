@@ -3,6 +3,7 @@ const roomNames = [{name: "iratxe", messages: []}];
 let actualRoom = "iratxe";
 const server = new SillyClient();
 let connectedPeople = [];
+let selectedPage = "chat";
 
 let myID = null;
 server.connect("wss://tamats.com:55000", roomNames[0].name);
@@ -37,11 +38,10 @@ server.on_room_info = function(info) {
 server.on_user_connected = function(user_id) {
 	notifyStatusChange("newConection", user_id);
 	const minID = Array.min(connectedPeople);
-	console.log("out if", typeof myID,typeof minID);
 	if (Number(myID) === minID) {
-		console.log("in if", myID, minID);
 		roomNames.forEach(function(room) {
-			if (actualRoom.name === roomName) {
+			if (actualRoom === room.name) {
+				console.log("in if", room)
 				room.messages.forEach(function(message) {
 					const messageStr = JSON.stringify(message);
 					server.sendMessage(messageStr, [user_id])
@@ -55,7 +55,7 @@ server.on_user_connected = function(user_id) {
 
 server.on_user_disconnected = function(user_id) {
 	notifyStatusChange("newDisconection", user_id);
-	list.splice( list.indexOf(user_id), 1 );
+	connectedPeople.splice( connectedPeople.indexOf(user_id), 1 );
 }
 
 function addChatRoom (room) {
@@ -139,6 +139,27 @@ function onChatRoomClick (room) {
 		}
 	})
 }
+
+function onHeaderClick () {
+	const selectedItem = document.querySelector("span.headerItem.active");
+	selectedItem.classList.remove("active");
+
+	const unselectedItem = document.querySelector("span.headerItem.inactive");
+	unselectedItem.classList.remove("inactive");
+
+	selectedItem.classList.add("inactive");
+	unselectedItem.classList.add("active");
+
+	const profilePage = document.querySelector("div.profilePage");
+
+	 if (unselectedItem.innerHTML === "Profile") {
+		profilePage.style["display"] = "flex";
+		console.log("profile")
+	} else {
+		profilePage.style["display"] = "none";
+		console.log("chat")
+	} 
+} 
 
 function onKeyDownAdd (event) {
 	if(event.code === "Enter") {

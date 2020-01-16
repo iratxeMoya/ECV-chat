@@ -15,31 +15,40 @@
     </head>
     <body>
 		<div class="header">
-			<a class="active" id="chat" href="">Chat</a>
-			<a id="profile" href="">Profile</a>
+			<span class="active headerItem" id="chat" onclick="onHeaderClick()" >Chat</span>
+			<span id="profile" class ="headerItem inactive" onclick="onHeaderClick()" >Profile</span>
 		</div>
-        <div class="container">
-			<div class="chatListContainer">
-				<div class="titleContainer">
-					<img src="MyAvatar.png" alt="Avatar" class="avatar" id="myAvatar">
-					<span class="title">Chat Rooms</span>
-					<div class="actionAdd">
-						<input type="text" id="addInput" placeholder="Type the name of the room to add..." /><button id="add"> <i class="material-icons md-18">add</i> </button>
+        <div id="all">
+			<div class="container">
+				<div class="chatListContainer">
+					<div class="titleContainer">
+						<img src="MyAvatar.png" alt="Avatar" class="avatar" id="myAvatar">
+						<span class="title">Chat Rooms</span>
+						<div class="actionAdd">
+							<input type="text" id="addInput" placeholder="Type the name of the room to add..." /><button id="add"> <i class="material-icons md-18">add</i> </button>
+						</div>
+					</div>
+				</div>
+				<div class="chat" >
+					<div class="messageContainer">
+						<p class="msg">
+							<img src="admin.jfif" alt="Avatar" class="avatar">
+							<span id="nameAndMsg">
+								<span id="name">Administrator</span>
+								<span class="text">Welcome to the chat</span>
+							</span>
+						</p>
+					</div>
+					<div class="action">
+						<input type="text" id="writeMsg" placeholder="Type message to send..." /> <button id="send"> <i class="material-icons md-18">send</i> </button>
 					</div>
 				</div>
 			</div>
-			<div class="chat" >
-				<div class="messageContainer">
-					<p class="msg">
-						<img src="admin.jfif" alt="Avatar" class="avatar">
-						<span id="nameAndMsg">
-							<span id="name">Administrator</span>
-							<span class="text">Welcome to the chat</span>
-						</span>
-					</p>
-				</div>
-				<div class="action">
-					<input type="text" id="writeMsg" placeholder="Type message to send..." /> <button id="send"> <i class="material-icons md-18">send</i> </button>
+			<div class="profilePage">
+				<div>
+					<img src="MyAvatar.png" alt="Avatar" class="avatar" id="myAvatar">
+					<span>Name</span>
+					<input type="color" id="colorPicker" >
 				</div>
 			</div>
         </div>
