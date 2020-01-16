@@ -1,9 +1,9 @@
 
-const roomNames = ["iratxe"];
+const roomNames = [{name: "iratxe", messages: []}];
 const server = new SillyClient();
-server.connect("wss://tamats.com:55000", roomNames[0]);
+server.connect("wss://tamats.com:55000", roomNames[0].name);
 roomNames.forEach(function (room) {
-	addChatRoom(room);
+	addChatRoom(room.name);
 });
 
 server.on_message = function(user_id, dataStr) {
@@ -11,6 +11,14 @@ server.on_message = function(user_id, dataStr) {
 	const user = data.user;
 	const message = data.msg;
 	sendMsg(message, user, false);
+	const chatRoom = server.room;
+	roomNames.forEach(function(room) {
+		if (room.name === chatRoom.name) {
+			data.isMe = false;
+			room.messages.push(data);
+		}
+	})
+	// setTimeout(function(){botMsg(message.length)}, 3000);
 }
 
 server.on_user_connected = function(user_id) {
@@ -31,12 +39,14 @@ function addChatRoom (room) {
 	numClients.innerHTML = server.num_clients;
 	roomName.innerHTML = room;
 	roomName.style["text-transform"] = "capitalize";
-	room === roomNames[0] ? chatRoomContainer.classList.add("selected") : null;
+	room === roomNames[0].name ? chatRoomContainer.classList.add("selected") : null;
 	chatRoomContainer.classList.add("chatRoomContainer");
 
 	chatRoomContainer.appendChild(roomName);
 	// chatRoomContainer.appendChild(numClients);
 	parent.appendChild(chatRoomContainer);
+
+	chatRoomContainer.addEventListener("click", function(){onChatRoomClick(chatRoomContainer)})
 }
 
 const bots = [
@@ -59,25 +69,57 @@ input.focus();
 const addBtn = document.querySelector("button#add");
 addBtn.addEventListener("click", onAddClick);
 
+const addInput = document.querySelector("input#addInput");
+addInput.addEventListener("keydown", onKeyDownAdd);
 
-function Message (user, text){
+
+function Message (user, text, isMe){
 	this.user = user;
 	this.msg = text;
+	this.isMe = isMe
 }
 
-function User (name, avatar, color, visualName) {
+function User (name, avatar, color) {
 	this.name = name;
 	this.avatar = avatar;
 	this.color = color;
 }
 
-function onChatRoomClick () {
+function onChatRoomClick (room) {
+	const selectedRoom = document.querySelector("div.chatRoomContainer.selected");
+	selectedRoom.classList.remove("selected");
+	room.classList.add("selected");
 
+	const child = room.childNodes[0];
+	roomName = child.innerHTML.toLowerCase();
+
+	server.connect("wss://tamats.com:55000", roomName);
+
+	const parent = document.querySelector("div.messageContainer");
+	while (parent.firstChild) {
+		parent.removeChild(parent.firstChild);
+	}
+	const admin = new User("Administrator", "admin.jfif", "black");
+	sendMsg("Welcome to the chat", admin, false);
+	roomNames.forEach(function(room) {
+		if (room.name === roomName) {
+			room.messages.forEach(function(message) {
+				sendMsg(message.msg, message.user, message.isMe);
+			})
+		}
+	})
+}
+
+function onKeyDownAdd (event) {
+	if(event.code === "Enter") {
+		onAddClick();
+	}
 }
 
 function onAddClick () {
 	const name = document.querySelector("input#addInput");
-	roomNames.push(name.value);
+	const newChatRoom = {name: name.value, messages: []};
+	roomNames.push(newChatRoom);
 	addChatRoom(name.value);
 	name.value = "";
 }
@@ -130,10 +172,17 @@ function onSendClick (){
 	
 	let text = input.value;
 	sendMsg(text, me, true );
-	const message = new Message(me, text);
+	const message = new Message(me, text, true);
+	const chatRoom = server.room;
+	roomNames.forEach(function(room) {
+		if (room.name === chatRoom.name) {
+			room.messages.push(message);
+		}
+	})
 	const messageStr = JSON.stringify(message);
 	server.sendMessage(messageStr);
 	input.value = "";
+	// setTimeout(function(){botMsg(text.length)}, 3000);
 
 }
 
@@ -190,17 +239,91 @@ function sendMsg (msg, user, isMe) {
 	
 }
 
-function botMsg () {
+// BOTS
+
+words = {"1":["a"],
+"2":["de","en","si","no","tu","ex","su","la","mi","el"],
+"3":["cum","dis","dui","est","hac","leo","mus","nam","nec","non","per","sed","sem","sit","vel"],
+"4":["amet","anam","ante","arcu","cras","diam","duis","eget","elit","enim","erat","eros","nibh","nisi","nisl","nunc","odio","orci","quam","quis","urna"],
+"5":["augue","class","curae","dolor","donec","etiam","fames","felis","fusce","ipsum","justo","lacus","lorem","magna","massa","metus","morbi","neque","netus","nulla","porta","proin","purus","risus","velit","vitae"],
+"6":["aenean","aptent","auctor","congue","cursus","dictum","lectus","libero","ligula","litora","luctus","magnis","mattis","mauris","mollis","montes","nostra","nullam","ornare","platea","primis","rutrum","sapien","semper","sociis","taciti","tellus","tempor","tempus","tortor","turpis","varius"],
+"7":["aliquam","aliquet","blandit","commodo","conubia","cubilia","dapibus","egestas","etmorbi","euismod","felisin","feugiat","finibus","gravida","iaculis","integer","lacinia","laoreet","maximus","natoque","posuere","pretium","quisque","rhoncus","sodales","vivamus","viverra"],
+"8":["accumsan","bibendum","dictumst","eleifend","estdonec","facilisi","faucibus","habitant","inceptos","interdum","lobortis","maecenas","mattisin","molestie","nascetur","pharetra","placerat","praesent","pulvinar","sagittis","senectus","sociosqu","suscipit","torquent","ultrices","vehicula","volutpat"],
+"9":["aliquetin","consequat","convallis","curabitur","dignissim","efficitur","elementum","facilisis","fermentum","fringilla","habitasse","hendrerit","himenaeos","imperdiet","malesuada","nisimorbi","penatibus","phasellus","porttitor","ridiculus","tincidunt","tristique","ultricies","venenatis","vulputate"],
+"10":["adipiscing","parturient","potentised","semaliquam","vestibulum"],
+"11":["condimentum","consectetur","dictumdonec","feugiatduis","luctusdonec","quaminteger","scelerisque","suspendisse","turpisdonec","ullamcorper"],
+"12":["arcumaecenas","egestasetiam","iaculisetiam","ligulamauris","pellentesque","sollicitudin"],
+"13":["consequatduis","hendreritduis"],
+"14":["convallisproin"],
+"15":["purusvestibulum","vestibulumdonec"],
+"16":["odiopellentesque"]};
+
+
+
+function botMsg (responseLength) {
 	
 	const index = getRandomInt(0, 4);
 	const user = users[index];
+	var numChars, selectedWord, response = "";
+
+	responseLength = responseLength ? responseLength : 5;
+
+	while (responseLength > 0) {
+		// pick a word, but don't repeat the last one!
+		do {
+			numChars = wordLengthByFrequency();
+			selectedWord = Math.floor(Math.random() * words[numChars].length);
+		}
+		while (words[numChars][selectedWord] == response.split(" ").pop().toLowerCase());
+
+		// Capitalize first word only
+		if (!response)
+			response = capitalizeWord(words[numChars][selectedWord]);
+		else
+			response += words[numChars][selectedWord];
+
+		responseLength--;
+
+		// last word? add punctuation, if not add a space
+		response += (responseLength === 0) ? getPunctuation() : " ";
+	}
 	
-	sendMsg("Hello, I'm a bot", user, false);
+	sendMsg(response, user, false);
+	const message = new Message(user, response, false);
+	const messageStr = JSON.stringify(message);
+	server.sendMessage(messageStr);
 	
 }
-// window.setInterval(botMsg, 5000);
 
-// some random functions for bots
+function capitalizeWord(word) {
+	return  word.charAt(0).toUpperCase() + word.slice(1);
+}
+function wordLengthByFrequency() {
+	var rndm,  // a random number between 1-100
+		dist,  // the distribution (in %) of the frequency of word lengths
+		i,     // loop counter
+		limit; // upper range limit for test
+
+	rndm = Math.floor(Math.random() * 100);
+	dist = [5, 7, 9, 13, 20, 13, 9, 5, 4, 4, 3, 2, 2, 2, 1, 1];
+
+	for (i = 0, limit = 0; i < 16; i++) {
+		limit += dist[i];
+		if (rndm <= limit) {
+			return ++i;
+		}
+	}
+}
+function getPunctuation() {
+	var mark = Math.ceil(Math.random() * 10);
+
+	if (mark == 9)
+		return '?';
+	else if (mark == 10)
+		return '!';
+	else
+		return '.';
+}
 
 function getRandomColor() {
 	var letters = '0123456789ABCDEF';
@@ -216,3 +339,5 @@ function getRandomInt(min, max) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+// window.setInterval(botMsg, 5000);
