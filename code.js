@@ -86,7 +86,7 @@ const bots = [
 	{name: "Tony", link: "a5.jfif", color: "#A6B416"}
 ]
 const users = createBots();
-const me = new User("Iratxe", "MyAvatar.png", "#C907B4");
+const me = new User("Iratxe", "myAvatar.png", "#C907B4");
 
 const button = document.querySelector("button#send");
 button.addEventListener("click", onSendClick);

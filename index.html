@@ -4,7 +4,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
         <title>ECV Chat</title>
         <link type="text/css" rel="stylesheet" media="all" href="style.css" />
-		<link type="text/css" rel="stylesheet" media="all" href="myStyle.css" />
+		<link type="text/css" rel="stylesheet" media="all" href="mystyle.css" />
 		<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />
 		<link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Asap&display=swap" rel="stylesheet">
@@ -22,14 +22,14 @@
 			<div class="container">
 				<div class="chatListContainer">
 					<div class="titleContainer">
-						<img src="MyAvatar.png" alt="Avatar" class="avatar" id="myAvatar">
+						<img src="myAvatar.png" alt="Avatar" class="avatar" id="myAvatar">
 						<span class="title">Chat Rooms</span>
 						<div class="actionAdd">
 							<input type="text" id="addInput" placeholder="Type the name of the room to add..." /><button id="add"> <i class="material-icons md-18">add</i> </button>
 						</div>
 					</div>
 				</div>
-				<div class="chat" >
+				<div class="chat" style="display: none">
 					<div class="messageContainer">
 						<p class="msg">
 							<img src="admin.jfif" alt="Avatar" class="avatar">
@@ -43,14 +43,16 @@
 						<input type="text" id="writeMsg" placeholder="Type message to send..." /> <button id="send"> <i class="material-icons md-18">send</i> </button>
 					</div>
 				</div>
-			</div>
-			<div class="profilePage">
-				<div>
-					<img src="MyAvatar.png" alt="Avatar" class="avatar" id="myAvatar">
-					<span>Name</span>
-					<input type="color" id="colorPicker" >
+				<div class="profilePage">
+					<div class="form">
+						<img src="myAvatar.png" alt="Avatar" class="avatar gridItem1" id="myAvatar">
+						<div style="display: flex"><input type="text", class="gridItem2" id="writeName"><button id="select"> <i class="material-icons md-18">done</i> </button></div>
+						<span class="gridItem3">Select a color</span>
+						<input class="gridItem4" type="color" id="colorPicker" >
+					</div>
 				</div>
 			</div>
+			
         </div>
 
 		<script type="text/javascript" src="code.js"></script>
