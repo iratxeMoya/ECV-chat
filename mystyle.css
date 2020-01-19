@@ -52,15 +52,34 @@ button#send {
 }
 .gridItem1 {
   justify-self: end;
+  margin-right: 24px !important;
 }
 .gridItem2 {
   justify-self: start;
 }
 .gridItem3 {
-  justify-self: end;
+  justify-self: start;
+  font-family: 'Asap', sans-serif;
+  text-transform: uppercase;
 }
 .gridItem4 {
-  justify-self: start;
+  justify-self: end;
+  border: none;
+  background-color: transparent;
+  width: 50px;
+  height: 50px;
+  margin-right: 24px;
+}
+input[type="color"]::-webkit-color-swatch {
+  border: none;
+  border-radius: 50%;
+  padding: 0;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+    border: none;
+    border-radius: 50%;
+    padding: 0;
 }
 .form {
   display: grid;
@@ -68,7 +87,7 @@ button#send {
   grid-template-columns: 40% 40%;
   justify-content: center;
   height: 100%;
-  grid-template-rows: 50px 50px 50px;
+  grid-template-rows: 50px 50px;
   grid-gap: 25px;
   align-content: center;
   align-items: center;
@@ -208,7 +227,33 @@ button#add:hover {
   background-color: #606c76;
   color: white;
 }
+button#select {
+  width: 40px;
+  min-width: 40px;
+  height: 40px;
+  text-align: center;
+  color: white;
+  background-color: rgb(155, 77, 202);
+  margin: 0px 0px 0px 1em;
+  padding: 0px;
+  border-radius: 50%;
+}
+button#select:hover {
+  background-color: #ebdbf4;
+  border-color: black;
+  color: black;
+}
 .actionAdd {
   display: flex;
   margin-top: 10px;
+}
+input [type='color'] {
+  visibility: hidden;
+}
+
+label#colorPicker {
+  background-color: black;
+  height: 32px;
+  width: 32px;
+  position: fixed;
 }

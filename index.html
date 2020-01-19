@@ -15,8 +15,8 @@
     </head>
     <body>
 		<div class="header">
-			<span class="active headerItem" id="chat" onclick="onHeaderClick()" >Chat</span>
-			<span id="profile" class ="headerItem inactive" onclick="onHeaderClick()" >Profile</span>
+			<span class="active headerItem" id="chat" >Chat</span>
+			<span id="profile" class ="headerItem inactive" >Profile</span>
 		</div>
         <div id="all">
 			<div class="container">
@@ -29,7 +29,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="chat" style="display: none">
+				<div class="chat">
 					<div class="messageContainer">
 						<p class="msg">
 							<img src="admin.jfif" alt="Avatar" class="avatar">
@@ -43,12 +43,12 @@
 						<input type="text" id="writeMsg" placeholder="Type message to send..." /> <button id="send"> <i class="material-icons md-18">send</i> </button>
 					</div>
 				</div>
-				<div class="profilePage">
+				<div class="profilePage" style="display:none"> 
 					<div class="form">
 						<img src="myAvatar.png" alt="Avatar" class="avatar gridItem1" id="myAvatar">
-						<div style="display: flex"><input type="text", class="gridItem2" id="writeName"><button id="select"> <i class="material-icons md-18">done</i> </button></div>
+						<div style="display: flex"><input type="text" placeholder="Type a name..." class="gridItem2" id="writeName"><button id="select"> <i class="material-icons md-18">done</i> </button></div>
+						<input class="gridItem4" type="color" value="#C907B4" id="colorPicker" >
 						<span class="gridItem3">Select a color</span>
-						<input class="gridItem4" type="color" id="colorPicker" >
 					</div>
 				</div>
 			</div>

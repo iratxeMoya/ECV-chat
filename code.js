@@ -4,6 +4,9 @@ let actualRoom = "iratxe";
 const server = new SillyClient();
 let connectedPeople = [];
 let selectedPage = "chat";
+let myName = "Iratxe";
+let myAvatar = "myAvatar.png";
+let myColor = "#C907B4";
 
 let myID = null;
 server.connect("wss://tamats.com:55000", roomNames[0].name);
@@ -86,7 +89,7 @@ const bots = [
 	{name: "Tony", link: "a5.jfif", color: "#A6B416"}
 ]
 const users = createBots();
-const me = new User("Iratxe", "myAvatar.png", "#C907B4");
+let me = new User(myName, myAvatar, myColor);
 
 const button = document.querySelector("button#send");
 button.addEventListener("click", onSendClick);
@@ -101,6 +104,18 @@ addBtn.addEventListener("click", onAddClick);
 const addInput = document.querySelector("input#addInput");
 addInput.addEventListener("keydown", onKeyDownAdd);
 
+const name = document.querySelector("input#writeName");
+name.addEventListener("keydown", onSelectClick);
+
+const buttonSelect = document.querySelector("button#select");
+buttonSelect.addEventListener("click", onSelectClick);
+
+const profile = document.querySelector("span#profile");
+profile.addEventListener("click", onProfileClick);
+
+const chat = document.querySelector("span#chat");
+chat.addEventListener("click", onChatClick);
+
 
 function Message (user, text, isMe){
 	this.user = user;
@@ -112,6 +127,27 @@ function User (name, avatar, color) {
 	this.name = name;
 	this.avatar = avatar;
 	this.color = color;
+}
+
+function onSelectClick () {
+	myName = name.value;
+	me = new User(myName, myAvatar, myColor);
+}
+
+function onProfileClick () {
+	const chatCont = document.querySelector("div.chat");
+	chat.style["display: none"];
+
+	const profileCont = document.querySelector("div.profilePage");
+	profileCont.style["display: block"];
+}
+
+function onChatClick () {
+	const chatCont = document.querySelector("div.chat");
+	chat.style["display: block"];
+
+	const profileCont = document.querySelector("div.profilePage");
+	profileCont.style["display: none"];
 }
 
 function onChatRoomClick (room) {
@@ -139,27 +175,6 @@ function onChatRoomClick (room) {
 		}
 	})
 }
-
-function onHeaderClick () {
-	const selectedItem = document.querySelector("span.headerItem.active");
-	selectedItem.classList.remove("active");
-
-	const unselectedItem = document.querySelector("span.headerItem.inactive");
-	unselectedItem.classList.remove("inactive");
-
-	selectedItem.classList.add("inactive");
-	unselectedItem.classList.add("active");
-
-	const profilePage = document.querySelector("div.profilePage");
-
-	 if (unselectedItem.innerHTML === "Profile") {
-		profilePage.style["display"] = "flex";
-		console.log("profile")
-	} else {
-		profilePage.style["display"] = "none";
-		console.log("chat")
-	} 
-} 
 
 function onKeyDownAdd (event) {
 	if(event.code === "Enter") {
