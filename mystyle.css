@@ -19,8 +19,8 @@
 #myAvatar {
   margin-right: 5px;
   margin-left: 5px;
-  border: 1px solid #ebdbf4;
-    background-color: #ebdbf4;
+  border: 1px solid rgb(79, 79, 79);;
+  background-color: #C907B4;
 }
 button#send {
   width: 40px;
@@ -51,11 +51,14 @@ button#send {
   border-radius: 6px;
 }
 .gridItem1 {
-  justify-self: end;
-  margin-right: 24px !important;
+  justify-self: center;
+  /* margin-right: 24px !important; */
+  background-color: #ebdbf4 !important;
+  border-color: #ebdbf4 !important;
 }
 .gridItem2 {
   justify-self: start;
+  border-color: #403f3f;
 }
 .gridItem3 {
   justify-self: start;
@@ -63,17 +66,36 @@ button#send {
   text-transform: uppercase;
 }
 .gridItem4 {
-  justify-self: end;
+  justify-self: center;
   border: none;
   background-color: transparent;
   width: 50px;
   height: 50px;
-  margin-right: 24px;
+  /* margin-right: 24px; */
+}
+.formContainer {
+  margin-top: 29vh;
+  padding: 2em;
+  border: 1px solid black;
+  margin-left: 1em;
+  margin-right: 1em;
+  border-radius: 6px;
+  color: #272727;
 }
 input[type="color"]::-webkit-color-swatch {
   border: none;
   border-radius: 50%;
   padding: 0;
+  transition: all .2s ease-in-out;
+}
+input[type="color"]:focus {
+  outline: none;
+}
+
+input[type="color"]:hover {
+  border-color: black;
+  cursor: pointer;
+  transform: scale(1.1);
 }
 
 input[type="color"]::-webkit-color-swatch-wrapper {

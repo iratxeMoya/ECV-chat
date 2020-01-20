@@ -1,6 +1,6 @@
 
-const roomNames = [{name: "iratxe", messages: []}];
-let actualRoom = "iratxe";
+const roomNames = [{name: "iratxe_room", messages: []}];
+let actualRoom = "iratxe_room";
 const server = new SillyClient();
 let connectedPeople = [];
 let selectedPage = "chat";
@@ -13,6 +13,7 @@ server.connect("wss://tamats.com:55000", roomNames[0].name);
 
 server.on_ready = function(id) {
 	myID = id;
+	
 }
 
 roomNames.forEach(function (room) {
@@ -31,7 +32,6 @@ server.on_message = function(user_id, dataStr) {
 			room.messages.push(data);
 		}
 	})
-	// setTimeout(function(){botMsg(message.length)}, 3000);
 }
 
 server.on_room_info = function(info) {
@@ -44,7 +44,6 @@ server.on_user_connected = function(user_id) {
 	if (Number(myID) === minID) {
 		roomNames.forEach(function(room) {
 			if (actualRoom === room.name) {
-				console.log("in if", room)
 				room.messages.forEach(function(message) {
 					const messageStr = JSON.stringify(message);
 					server.sendMessage(messageStr, [user_id])
@@ -75,7 +74,6 @@ function addChatRoom (room) {
 	chatRoomContainer.classList.add("chatRoomContainer");
 
 	chatRoomContainer.appendChild(roomName);
-	// chatRoomContainer.appendChild(numClients);
 	parent.appendChild(chatRoomContainer);
 
 	chatRoomContainer.addEventListener("click", function(){onChatRoomClick(chatRoomContainer)})
@@ -105,7 +103,7 @@ const addInput = document.querySelector("input#addInput");
 addInput.addEventListener("keydown", onKeyDownAdd);
 
 const name = document.querySelector("input#writeName");
-name.addEventListener("keydown", onSelectClick);
+name.addEventListener("keydown", onKeyDownSelect);
 
 const buttonSelect = document.querySelector("button#select");
 buttonSelect.addEventListener("click", onSelectClick);
@@ -115,6 +113,9 @@ profile.addEventListener("click", onProfileClick);
 
 const chat = document.querySelector("span#chat");
 chat.addEventListener("click", onChatClick);
+
+const colorPicker = document.querySelector("input#colorPicker");
+colorPicker.addEventListener("change", onColorChange);
 
 
 function Message (user, text, isMe){
@@ -129,25 +130,46 @@ function User (name, avatar, color) {
 	this.color = color;
 }
 
+function onColorChange () {
+	myColor = colorPicker.value;
+	me = new User(myName, myAvatar, myColor);
+	const avatar = document.querySelector("img#myAvatar");
+	avatar.style["background-color"] = myColor;
+}
+
+function onKeyDownSelect (event) {
+	if(event.code === "Enter") {
+		onSelectClick();
+	}
+}
+
 function onSelectClick () {
 	myName = name.value;
 	me = new User(myName, myAvatar, myColor);
+	const chatRoomTitle = document.querySelector("span.title");
+	chatRoomTitle.innerHTML = "[" + myName + "] chat rooms"
+	name.value = ""
 }
 
 function onProfileClick () {
 	const chatCont = document.querySelector("div.chat");
-	chat.style["display: none"];
+	chatCont.style["display"] = "none";
 
 	const profileCont = document.querySelector("div.profilePage");
-	profileCont.style["display: block"];
+	profileCont.style["display"] = "block";
+
+	profile.style["background-color"] = "#9b4dca";
+	chat.style["background-color"] = "#4f4f4f";
 }
 
 function onChatClick () {
 	const chatCont = document.querySelector("div.chat");
-	chat.style["display: block"];
+	chatCont.style["display"] = "block";
 
 	const profileCont = document.querySelector("div.profilePage");
-	profileCont.style["display: none"];
+	profileCont.style["display"] = "none";
+	chat.style["background-color"] = "#9b4dca";
+	profile.style["background-color"] = "#4f4f4f";
 }
 
 function onChatRoomClick (room) {
@@ -249,7 +271,6 @@ function onSendClick (){
 	const messageStr = JSON.stringify(message);
 	server.sendMessage(messageStr);
 	input.value = "";
-	// setTimeout(function(){botMsg(text.length)}, 3000);
 
 }
 
@@ -282,8 +303,6 @@ function sendMsg (msg, user, isMe) {
 	name.innerHTML = isMe ? "Me" : user.name;
 	
 	if (isMe) {
-		/* message.appendChild(text);
-		message.appendChild(image); */
 		const group = document.createElement("div");
 		group.classList.add("group");
 		nameAndMsg.appendChild(name);
