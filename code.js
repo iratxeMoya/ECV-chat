@@ -4,9 +4,11 @@ let actualRoom = "iratxe_room";
 const server = new SillyClient();
 let connectedPeople = [];
 let selectedPage = "chat";
-let myName = "Iratxe";
-let myAvatar = "myAvatar.png";
+let myName = "Unknown";
+let myAvatar = "unknown.jpg";
 let myColor = "#C907B4";
+
+const possibleAvatars = ["myAvatar.png", "a1.jfif", "a2.jfif", "a3.jfif", "a4.jfif", "a5.jfif"]
 
 let myID = null;
 server.connect("wss://tamats.com:55000", roomNames[0].name);
@@ -89,6 +91,11 @@ const bots = [
 const users = createBots();
 let me = new User(myName, myAvatar, myColor);
 
+const myProfileAvatar = document.querySelector("label.gridItem1");
+myProfileAvatar.addEventListener("click", onMyAvatarClick);
+
+let possibleAvatarsDOM = null;
+
 const button = document.querySelector("button#send");
 button.addEventListener("click", onSendClick);
 
@@ -130,10 +137,47 @@ function User (name, avatar, color) {
 	this.color = color;
 }
 
+function onAvatarClick () {
+	myAvatar = this.src;
+	me = new User(myName, myAvatar, myColor);
+	let avatar = document.querySelector("img#myAvatar");
+	avatar.src = this.src;
+
+	avatar = document.querySelector("label img#myAvatar");
+	avatar.src = this.src;
+}
+
+function onMyAvatarClick () {
+
+	const envelop = document.createElement("div");
+	envelop.id = "myDropdown";
+	envelop.classList.add("dropdown-content");
+
+	possibleAvatars.forEach(function(avatar) {
+		const child = document.createElement("img");
+		child.src = avatar;
+		child.classList.add("avatar");
+
+		envelop.appendChild(child);
+	});
+
+	const parent = myProfileAvatar;
+	parent.appendChild(envelop);
+
+	document.getElementById("myDropdown").classList.toggle("show");
+	possibleAvatarsDOM = document.querySelectorAll("div#myDropdown img");
+	console.log(possibleAvatarsDOM)
+	possibleAvatarsDOM.forEach(function(avatar) {
+		avatar.addEventListener("click", onAvatarClick)
+	})
+}
+
 function onColorChange () {
 	myColor = colorPicker.value;
 	me = new User(myName, myAvatar, myColor);
-	const avatar = document.querySelector("img#myAvatar");
+	let avatar = document.querySelector("img#myAvatar");
+	avatar.style["background-color"] = myColor;
+	avatar = document.querySelector("label img#myAvatar");
 	avatar.style["background-color"] = myColor;
 }
 

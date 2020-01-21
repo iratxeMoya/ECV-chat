@@ -21,6 +21,7 @@
   margin-left: 5px;
   border: 1px solid rgb(79, 79, 79);;
   background-color: #C907B4;
+  
 }
 button#send {
   width: 40px;
@@ -52,9 +53,13 @@ button#send {
 }
 .gridItem1 {
   justify-self: center;
-  /* margin-right: 24px !important; */
+  transition: all .2s ease-in-out;
   background-color: #ebdbf4 !important;
   border-color: #ebdbf4 !important;
+}
+.gridItem1:hover {
+  cursor: pointer;
+  transform: scale(1.1);
 }
 .gridItem2 {
   justify-self: start;
@@ -164,6 +169,7 @@ input[type="color"]::-webkit-color-swatch-wrapper {
   width: 50px;
   height: 50px;
   border-radius: 50%;
+  margin-left: 5px;
 }
 #nameAndMsg {
   display: grid;
@@ -278,4 +284,38 @@ label#colorPicker {
   height: 32px;
   width: 32px;
   position: fixed;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content img {
+  color: black;
+  padding: 5px 4px;
+  text-decoration: none;
+  display: block;
+  justify-self: center;
+  margin: auto;
+  width: 60px;
+  height: 60px;
+  transition: all .2s ease-in-out;
+}
+.dropdown-content img:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {
+  display: grid;
+  grid-template-columns: 60px 60px 60px;
+  grid-template-rows: 60px 60px;
 }
