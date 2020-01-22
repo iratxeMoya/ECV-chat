@@ -121,8 +121,8 @@ profile.addEventListener("click", onProfileClick);
 const chat = document.querySelector("span#chat");
 chat.addEventListener("click", onChatClick);
 
-const colorPicker = document.querySelector("input#colorPicker");
-colorPicker.addEventListener("change", onColorChange);
+//const colorPicker = document.querySelector("input#colorPicker");
+//colorPicker.addEventListener("change", onColorChange);
 
 
 function Message (user, text, isMe){
@@ -172,8 +172,8 @@ function onMyAvatarClick () {
 	})
 }
 
-function onColorChange () {
-	myColor = colorPicker.value;
+function onColorChange (value) {
+	myColor = value;
 	me = new User(myName, myAvatar, myColor);
 	let avatar = document.querySelector("img#myAvatar");
 	avatar.style["background-color"] = myColor;
@@ -477,3 +477,19 @@ function getRandomInt(min, max) {
 }
 
 // window.setInterval(botMsg, 5000);
+// color picker
+
+var elem = $('.color-button')[0];
+var hueb = new Huebee( elem, {
+  // options
+});
+hueb.setColor('#C907B4');
+// initialize on multiple elements with jQuery
+$('.color-input').each( function( i, elem ) {
+  var hueb = new Huebee( elem, {
+    // options
+  });
+});
+hueb.on( 'change', function( color, hue, sat, lum ) {
+	onColorChange(color);
+  })
