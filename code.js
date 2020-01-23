@@ -8,7 +8,7 @@ let myName = "Unknown";
 let myAvatar = "unknown.jpg";
 let myColor = "#C907B4";
 
-
+new EmojiPicker();
 const possibleAvatars = ["myAvatar.png", "a1.jfif", "a2.jfif", "a3.jfif", "a4.jfif", "a5.jfif"]
 
 let myID = null;

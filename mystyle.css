@@ -248,6 +248,7 @@ input[type="color"]::-webkit-color-swatch-wrapper {
 .chat {
   width:  calc(100% - 320px);
   margin-right: 0px;
+  min-width: 895px;
 }
 .titleContainer {
   text-align: left;
@@ -375,4 +376,8 @@ h1.elegantShadow {
   height: 65px;
   min-width: 60px;
   min-height: 60px;
+}
+
+.action > div {
+  width: 100%;
 }
