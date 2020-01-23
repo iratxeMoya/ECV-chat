@@ -3,7 +3,7 @@ const roomNames = [{name: "iratxe_room", messages: []}];
 let actualRoom = "iratxe_room";
 const server = new SillyClient();
 let connectedPeople = [];
-let selectedPage = "chat";
+let selectedPage = "profile";
 let myName = "Unknown";
 let myAvatar = "unknown.jpg";
 let myColor = "#C907B4";
@@ -24,6 +24,7 @@ roomNames.forEach(function (room) {
 
 const chatRoomName = document.querySelector("span.chatRoomTitle");
 chatRoomName.innerHTML = actualRoom;
+
 server.on_message = function(user_id, dataStr) {
 	const data = JSON.parse(dataStr);
 	const user = data.user;
@@ -81,6 +82,7 @@ function addChatRoom (room) {
 	parent.appendChild(chatRoomContainer);
 
 	chatRoomContainer.addEventListener("click", function(){onChatRoomClick(chatRoomContainer)})
+	onChatRoomClick(chatRoomContainer);
 }
 
 const bots = [
@@ -211,7 +213,9 @@ function onChatClick () {
 
 	const profileCont = document.querySelector("div.profilePage");
 	profileCont.style["display"] = "none";
+	const chat = document.querySelector("span#chat");
 	chat.style["background-color"] = "#9b4dca";
+	const profile = document.querySelector("span#profile");
 	profile.style["background-color"] = "#4f4f4f";
 }
 
@@ -239,6 +243,9 @@ function onChatRoomClick (room) {
 			})
 		}
 	})
+	
+	const chatRoomName = document.querySelector("span.chatRoomTitle");
+	chatRoomName.innerHTML = actualRoom;
 }
 
 function onKeyDownAdd (event) {
