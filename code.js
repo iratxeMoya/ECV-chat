@@ -8,6 +8,7 @@ let myName = "Unknown";
 let myAvatar = "unknown.jpg";
 let myColor = "#C907B4";
 
+
 const possibleAvatars = ["myAvatar.png", "a1.jfif", "a2.jfif", "a3.jfif", "a4.jfif", "a5.jfif"]
 
 let myID = null;
@@ -51,7 +52,8 @@ server.on_user_connected = function(user_id) {
 			if (actualRoom === room.name) {
 				room.messages.forEach(function(message) {
 					const messageStr = JSON.stringify(message);
-					server.sendMessage(messageStr, [user_id])
+					server.sendMessage(messageStr, [user_id]);
+					console.log("sended message: ", messageStr);
 				})
 			}
 		})
@@ -82,7 +84,6 @@ function addChatRoom (room) {
 	parent.appendChild(chatRoomContainer);
 
 	chatRoomContainer.addEventListener("click", function(){onChatRoomClick(chatRoomContainer)})
-	onChatRoomClick(chatRoomContainer);
 }
 
 const bots = [
@@ -167,7 +168,6 @@ function onMyAvatarClick () {
 
 	document.getElementById("myDropdown").classList.toggle("show");
 	possibleAvatarsDOM = document.querySelectorAll("div#myDropdown img");
-	console.log(possibleAvatarsDOM)
 	possibleAvatarsDOM.forEach(function(avatar) {
 		avatar.addEventListener("click", onAvatarClick)
 	})
@@ -236,7 +236,10 @@ function onChatRoomClick (room) {
 	}
 	const admin = new User("Administrator", "admin.jfif", "black");
 	sendMsg("Welcome to the chat", admin, false);
+
+
 	roomNames.forEach(function(room) {
+		console.log("in the first for: ", room)
 		if (room.name === roomName) {
 			room.messages.forEach(function(message) {
 				sendMsg(message.msg, message.user, message.isMe);
