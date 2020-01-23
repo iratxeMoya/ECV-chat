@@ -12,9 +12,27 @@
   border-radius: 6px;
   max-height: 77vh;
   background-color: #9b4dca33;
-  /* box-shadow: 1px 3px 11px 0px #574684; */
+  border-radius: 0px 0px 6px 6px;
   height: 77vh;
   overflow: scroll;
+}
+.chatRoomTitleContainer {
+  width: 100%;
+  height: 40px;
+  vertical-align: middle;
+  text-align: center;
+  font-family: 'Asap', sans-serif;
+  text-transform: uppercase;
+  font-size: 17px;
+  color: white;
+  border-radius: 6px 6px 0 0;
+  background-color: #4f4f4f;
+  display: table;
+}
+.chatRoomTitle {
+  display: table-cell;
+  vertical-align: middle;
+  text-transform: uppercase;
 }
 #myAvatar {
   margin-right: 5px;
@@ -63,7 +81,7 @@ button#send {
 }
 .gridItem2 {
   justify-self: start;
-  border-color: #403f3f;
+  border-color: #403f3f8c !important;
 }
 .gridItem3 {
   justify-self: start;
@@ -73,17 +91,16 @@ button#send {
 .gridItem4 {
   justify-self: center;
   border: none;
-  background-color: transparent;
-
-  /* margin-right: 24px; */
+  width: 240px;
+  border: 1px solid #8d8691;
+  grid-column: 1 / 3;
 }
 .formContainer {
-  margin-top: 29vh;
-  padding: 2em;
-  border: 1px solid black;
+  
+  padding: 5em;
+  border-top: 1px solid #8d8691;
   margin-left: 1em;
   margin-right: 1em;
-  border-radius: 6px;
   color: #272727;
 }
 input[type="color"]::-webkit-color-swatch {
@@ -317,4 +334,32 @@ label#colorPicker {
   display: grid;
   grid-template-columns: 60px 60px 60px;
   grid-template-rows: 60px 60px;
+}
+
+.gridItem2::placeholder {
+  color: #403f3f8c;
+}
+#addInput::placeholder {
+  color: #403f3f8c;
+}
+#writeMsg::placeholder {
+  color: #403f3f8c;
+}
+
+h1 {
+  font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
+    font-size: 60px;
+    padding: 50px 50px;
+    text-align: center;
+    text-transform: uppercase;
+    text-rendering: optimizeLegibility;
+    border-radius: 6px;
+  
+}
+h1.elegantShadow {
+  color: #131313;
+  background-color: #ebdbf4;
+  border-radius: 6px;
+  letter-spacing: .15em;
+  text-shadow: 1px -1px 0 rgb(138, 138, 138), -1px 0px 1px rgba(138, 138, 138, 0.92), -2px 2px 1px rgba(138, 138, 138, 0.87), -3px 4px 1px rgba(138, 138, 138, 0.82), -4px 6px 1px rgba(138, 138, 138, 0.78), -5px 8px 1px rgba(138, 138, 138, 0.7), -6px 10px 1px rgba(138, 138, 138, 0.67), -7px 12px 1px rgba(138, 138, 138, 0.59), -8px 14px 1px rgba(138, 138, 138, 0.54), -9px 16px 1px rgba(138, 138, 138, 0.47), -10px 18px 1px rgba(138, 138, 138, 0.42), -11px 20px 1px rgba(138, 138, 138, 0.36), -12px 22px 1px rgba(138, 138, 138, 0.29), -13px 24px 1px rgba(138, 138, 138, 0.24), -14px 26px 1px rgba(138, 138, 138, 0.05);
 }

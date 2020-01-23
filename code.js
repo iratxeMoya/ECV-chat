@@ -22,6 +22,8 @@ roomNames.forEach(function (room) {
 	addChatRoom(room.name);
 });
 
+const chatRoomName = document.querySelector("span.chatRoomTitle");
+chatRoomName.innerHTML = actualRoom;
 server.on_message = function(user_id, dataStr) {
 	const data = JSON.parse(dataStr);
 	const user = data.user;
@@ -120,9 +122,6 @@ profile.addEventListener("click", onProfileClick);
 
 const chat = document.querySelector("span#chat");
 chat.addEventListener("click", onChatClick);
-
-//const colorPicker = document.querySelector("input#colorPicker");
-//colorPicker.addEventListener("change", onColorChange);
 
 
 function Message (user, text, isMe){
