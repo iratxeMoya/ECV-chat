@@ -15,15 +15,15 @@ function addChatRoom (room) {
 	const roomName = document.createElement("span");
 	const parent = document.querySelector(".chatListContainer");
 	const nameAndBtn = document.createElement("div");
-	//const deleteBtn = document.createElement("button");
-	//const deleteIcon = document.createElement("i");
-	
-	//deleteIcon.classList.add("material-icons");
-	//deleteIcon.classList.add("md-18");
-	//deleteIcon.innerHTML = "delete";
+	const deleteBtn = document.createElement("button");
+	const deleteIcon = document.createElement("i");
 
-	//deleteBtn.appendChild(deleteIcon);
-	//deleteBtn.classList.add("deleteBtn");
+	deleteIcon.classList.add("material-icons");
+	deleteIcon.classList.add("md-18");
+	deleteIcon.innerHTML = "delete";
+
+	deleteBtn.appendChild(deleteIcon);
+	deleteBtn.classList.add("deleteBtn");
 
 	nameAndBtn.classList.add("nameAndBtn");
 
@@ -33,12 +33,12 @@ function addChatRoom (room) {
 	chatRoomContainer.classList.add("chatRoomContainer");
 
 	nameAndBtn.appendChild(roomName);
-	//nameAndBtn.appendChild(deleteBtn);
+	nameAndBtn.appendChild(deleteBtn);
 	chatRoomContainer.appendChild(nameAndBtn);
 	parent.appendChild(chatRoomContainer);
 
-	chatRoomContainer.addEventListener("click", function(){onChatRoomClick(chatRoomContainer)});
-	//deleteBtn.addEventListener("click", function(){onDeleteRoom(chatRoomContainer)});
+	roomName.addEventListener("click", function(){onChatRoomClick(chatRoomContainer)});
+	deleteBtn.addEventListener("click", function(){onDeleteRoom(chatRoomContainer)});
 }
 
 function onDeleteRoom (room) {
