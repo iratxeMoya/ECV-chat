@@ -13,7 +13,6 @@ server.on_message = function(user_id, dataStr) {
 	const data = JSON.parse(dataStr);
 
 	if (data.type == 'msg') {
-		console.log("message REcived: ", data);
 		const user = data.user;
 		const message = data.msg;
 		const chatRoom = server.room;
@@ -46,14 +45,11 @@ server.on_user_connected = function(user_id) {
 			minID = Array.min(room.connectedUsers);
 		}
 	})
-
-	console.log("new user connected. ID: ", user_id, "my ID: ", myID)
 	
 	if (Number(myID) === minID) {
 		roomNames.forEach(function(room) {
 			if (actualRoom === room.name) {
 				room.messages.forEach(function(message) {
-					console.log("messageSended: ", message);
 					const messageStr = JSON.stringify(message);
 					server.sendMessage(messageStr, [user_id]);
 				});

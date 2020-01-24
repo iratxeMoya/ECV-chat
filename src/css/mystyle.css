@@ -381,3 +381,21 @@ h1.elegantShadow {
 .action > div {
   width: 100%;
 }
+.roomName {
+  justify-self: center;
+  align-self: center;
+  font-size: larger;
+}
+.deleteBtn {
+  width: 40px;
+  padding: 0;
+  justify-self: end;
+  height: 40px;
+  background-color: transparent;
+  border-radius: 50%;
+  border-color: transparent;
+}
+.nameAndBtn {
+  display: grid;
+  grid-template-columns: 80% 20%;
+}

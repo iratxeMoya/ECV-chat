@@ -1,7 +1,7 @@
 
 // Some global variables
 
-const roomNames = [{name: "iratxe_room", messages: [], connectedUsers: []}];
+let roomNames = [{name: "iratxe_room", messages: [], connectedUsers: []}];
 let actualRoom = "iratxe_room";
 let selectedPage = "profile";
 let myName = "Unknown";

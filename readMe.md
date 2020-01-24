@@ -19,7 +19,10 @@ Create new Chat rooms:
     New chat rooms can be created. Type the name in the input field and press + button or Enter.
     All created chat rooms will appear on the left side.
     Selected chat room wil be in purple, unselected ones in grey.
-    Click on a chat room to enter. Old messages of the actual session will be sended to you if you don't have
+    Click on a chat room name to enter. Old messages of the actual session will be sended to you if you don't have
     messages in this room.
 
 Users name, color and avatar can be changed anytime by clicking on Profile.
+
+Delete chat rooms:
+    Chat rooms can be deleted only if you are not in.

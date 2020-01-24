@@ -33,8 +33,6 @@ function sendMsg (msg, user, isMe) {
 	if(msg === ""){
 		return;
 	}
-
-	console.log("messageSended: ", msg);
 	
 	const message = document.createElement("p");
 	message.classList.add("msg");
