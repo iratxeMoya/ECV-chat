@@ -11,6 +11,7 @@ server.on_ready = function(id) { myID = id };
 server.on_message = function(user_id, dataStr) {
 
 	const data = JSON.parse(dataStr);
+	console.log("message recived: ", data);
 
 	if (data.type == 'msg') {
 		const user = data.user;
@@ -18,11 +19,13 @@ server.on_message = function(user_id, dataStr) {
 		const chatRoom = server.room;
 		roomNames.forEach(function(room) {
 			if (room.name === chatRoom.name) {
-				//if (room.messages.length == 0) {
+				if (room.messages.length != 0 && data.isBackup) {
+					return;
+				} else {
 					sendMsg(message, user, false);
 					data.isMe = false;
 					room.messages.push(data);
-				//}
+				}
 			}
 		})
 	}
@@ -50,6 +53,7 @@ server.on_user_connected = function(user_id) {
 		roomNames.forEach(function(room) {
 			if (actualRoom === room.name) {
 				room.messages.forEach(function(message) {
+					message.isBackup = true;
 					const messageStr = JSON.stringify(message);
 					server.sendMessage(messageStr, [user_id]);
 				});

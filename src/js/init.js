@@ -1,8 +1,8 @@
 
 // Some global variables
 
-let roomNames = [{name: "iratxe_room", messages: [], connectedUsers: []}];
-let actualRoom = "iratxe_room";
+let roomNames = [{name: "iratxe_rooma", messages: [], connectedUsers: []}];
+let actualRoom = "iratxe_rooma";
 let selectedPage = "profile";
 let myName = "Unknown";
 let myAvatar = "../images/unknown.jpg";
