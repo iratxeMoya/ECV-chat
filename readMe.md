@@ -1,6 +1,10 @@
 
 ECV - PRACTICA 1 - CHAT:
 
+NIA: 192671
+NAME: Iratxe Moya
+
+
 
 On entering to the page:
     Profile page is opened.
