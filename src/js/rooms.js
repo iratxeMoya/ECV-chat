@@ -15,30 +15,30 @@ function addChatRoom (room) {
 	const roomName = document.createElement("span");
 	const parent = document.querySelector(".chatListContainer");
 	const nameAndBtn = document.createElement("div");
-	const deleteBtn = document.createElement("button");
-	const deleteIcon = document.createElement("i");
+	//const deleteBtn = document.createElement("button");
+	//const deleteIcon = document.createElement("i");
 	
-	deleteIcon.classList.add("material-icons");
-	deleteIcon.classList.add("md-18");
-	deleteIcon.innerHTML = "delete";
+	//deleteIcon.classList.add("material-icons");
+	//deleteIcon.classList.add("md-18");
+	//deleteIcon.innerHTML = "delete";
 
-	deleteBtn.appendChild(deleteIcon);
-	deleteBtn.classList.add("deleteBtn");
+	//deleteBtn.appendChild(deleteIcon);
+	//deleteBtn.classList.add("deleteBtn");
 
 	nameAndBtn.classList.add("nameAndBtn");
 
 	roomName.innerHTML = room;
-	roomName.classList.add("roomName");
+	roomName.classList.add("roomName2");
 	room === roomNames[0].name ? chatRoomContainer.classList.add("selected") : null;
 	chatRoomContainer.classList.add("chatRoomContainer");
 
 	nameAndBtn.appendChild(roomName);
-	nameAndBtn.appendChild(deleteBtn);
+	//nameAndBtn.appendChild(deleteBtn);
 	chatRoomContainer.appendChild(nameAndBtn);
 	parent.appendChild(chatRoomContainer);
 
-	roomName.addEventListener("click", function(){onChatRoomClick(chatRoomContainer)});
-	deleteBtn.addEventListener("click", function(){onDeleteRoom(chatRoomContainer)});
+	chatRoomContainer.addEventListener("click", function(){onChatRoomClick(chatRoomContainer)});
+	//deleteBtn.addEventListener("click", function(){onDeleteRoom(chatRoomContainer)});
 }
 
 function onDeleteRoom (room) {
@@ -63,7 +63,7 @@ function onChatRoomClick (room) {
 	room.classList.add("selected");
 
 	const child = room.childNodes[0];
-	roomName = child.innerHTML.toLowerCase();
+	roomName = child.childNodes[0].innerHTML;
 
 	server.connect("wss://tamats.com:55000", roomName);
 	actualRoom = roomName;
@@ -74,7 +74,6 @@ function onChatRoomClick (room) {
 	}
 	const admin = new User("Administrator", "../images/admin.jfif", "black");
 	sendMsg("Welcome to the chat", admin, false, 'msg');
-
 
 	roomNames.forEach(function(room) {
 		if (room.name === roomName) {

@@ -15,11 +15,12 @@ new EmojiPicker();
 
 // Classes
 
-function Message (user, text, isMe, type){
+function Message (user, text, isMe, type, isBackup = false){
 	this.type = type;
 	this.user = user;
 	this.msg = text;
-	this.isMe = isMe
+	this.isMe = isMe;
+	this.isBackup = isBackup;
 }
 
 function User (name, avatar, color) {

@@ -18,11 +18,11 @@ server.on_message = function(user_id, dataStr) {
 		const chatRoom = server.room;
 		roomNames.forEach(function(room) {
 			if (room.name === chatRoom.name) {
-				if (room.messages.length == 0) {
+				//if (room.messages.length == 0) {
 					sendMsg(message, user, false);
 					data.isMe = false;
 					room.messages.push(data);
-				}
+				//}
 			}
 		})
 	}
