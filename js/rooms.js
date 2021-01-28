@@ -72,7 +72,7 @@ function onChatRoomClick (room) {
 	while (parent.firstChild) {
 		parent.removeChild(parent.firstChild);
 	}
-	const admin = new User("Administrator", "../images/admin.jfif", "black");
+	const admin = new User("Administrator", "./images/admin.jfif", "black");
 	sendMsg("Welcome to the chat", admin, false, 'msg');
 
 	roomNames.forEach(function(room) {
